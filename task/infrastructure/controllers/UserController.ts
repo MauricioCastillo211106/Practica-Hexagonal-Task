@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { UserService } from "../../application/services/uses-cases/UserService";
 import { UserRepository } from "../repositorios/UserRepository";
 
+
 export const registerUser = async (req: Request, res: Response, userRepository: UserRepository, userService: UserService) => {
     try {
         const newUser = await userService.createUser(req.body);
@@ -27,6 +28,33 @@ export const updateUser = async (req: Request, res: Response, userRepository: Us
             res.status(400).json({ error: err.message });
         } else {
             // Manejar otros tipos de errores aquí
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+};
+
+export const deleteUser = async (req: Request, res: Response, userRepository: UserRepository, userService: UserService) => {
+    try {
+        const userId = req.params.id;
+        await userService.deleteUser(userId);
+        res.status(204).send(); // No Content
+    } catch (err) {
+        if (err instanceof Error) {
+            res.status(400).json({ error: err.message });
+        } else {
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+};
+
+export const getAllUsers = async (req: Request, res: Response, userRepository: UserRepository, userService: UserService) => {
+    try {
+        const allUsers = await userService.getAllUsers();
+        res.status(200).json(allUsers);
+    } catch (err) {
+        if (err instanceof Error) {
+            res.status(500).json({ error: err.message });
+        } else {
             res.status(500).json({ error: "Internal server error" });
         }
     }

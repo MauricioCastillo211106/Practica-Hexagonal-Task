@@ -28,7 +28,7 @@ export class PostgresUserRepository implements UserRepository {
         }
     }
 
-async findById(userId: string): Promise<User | null> {
+    async findById(userId: string): Promise<User | null> {
         try {
             const user = await UserModel.findByPk(userId);
             return user ? user.toJSON() as User : null;
@@ -54,6 +54,27 @@ async findById(userId: string): Promise<User | null> {
             return user;
         } catch (error) {
             throw new Error(`Error updating user: ${(error as Error).message}`);
+        }
+    }
+
+    async deleteUser(userId: string): Promise<void> {
+        try {
+            const user = await UserModel.findByPk(userId);
+            if (!user) {
+                throw new Error('User not found');
+            }
+            await user.destroy();
+        } catch (error) {
+            throw new Error(`Error deleting user: ${(error as Error).message}`);
+        }
+    }
+
+    async getAll(): Promise<User[]> {
+        try {
+            const users = await UserModel.findAll();
+            return users.map(user => user.toJSON() as User);
+        } catch (error) {
+            throw new Error(`Error getting all users: ${(error as Error).message}`);
         }
     }
 }
