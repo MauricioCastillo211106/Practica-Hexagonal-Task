@@ -1,25 +1,29 @@
 // app.ts
 import express from "express";
 import bodyParser from 'body-parser';
-import { registerUser,updateUser } from "./task/infrastructure/controllers/UserController";
-import { PostgresUserRepository } from "./task/infrastructure/repositorios/PostegresUserRepository";
-import { UserService } from "./task/application/services/uses-cases/UserService";
+import { registerTask,updateTask, deleteTask, getAllTask } from "./task/infrastructure/controllers/TaskController";
+import { PostgresUserRepository as PostgresTaskRepository } from "./task/infrastructure/repositorios/PostegresTaskRepository";
+import { TaskService } from "./task/application/services/uses-cases/TaskService";
+
 
 const app = express();
 const PORT = 3000;
 
 // Dependency Injection
-const userRepository = new PostgresUserRepository();
-const userService = new UserService(userRepository);
+const taskRepository = new PostgresTaskRepository();
+const taskService = new TaskService(taskRepository);
 
 // Middleware
 app.use(bodyParser.json());
 
 // Routes
-app.post('/user/register', (req, res) => registerUser(req, res, userRepository, userService));
-app.put('/user/:id', (req, res) => updateUser(req, res, userRepository, userService)); // Agrega la ruta para actualizar un usuario
+app.post('/task/register', (req, res) => registerTask(req, res, taskRepository, taskService));
+app.put('/task/:id', (req, res) => updateTask(req, res, taskRepository, taskService)); // Agrega la ruta para actualizar un usuario
+app.delete('/task/:id', (req, res) => deleteTask(req, res, taskRepository, taskService)); // Agrega esta línea
+app.get('/task', (req, res) => getAllTask(req, res, taskRepository, taskService));
 
 // Start server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+

@@ -2,34 +2,33 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../../database/sequelize';
 
-const UserModel = sequelize.define('User', {
-    firstName: {
+const TaskModel = sequelize.define('Task', {
+    name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    lastName: {
+    date: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    phone: {
+    status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+    },
+    description: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-    },
-    password: {
+    allocator: {
         type: DataTypes.STRING,
         allowNull: false,
     },
     
 },{
-    tableName: "User",
+    tableName: "Task",
     freezeTableName:true
 });
-UserModel.sync()
+TaskModel.sync()
   .then(() => {
     console.log('Tabla de usuarios creada correctamente.');
   })
@@ -37,4 +36,4 @@ UserModel.sync()
     console.error('Error al crear la tabla de usuarios:', error);
   })
 
-export default UserModel; // Asegúrate de exportar correctamente el modelo aquí
+export default TaskModel; // Asegúrate de exportar correctamente el modelo aquí

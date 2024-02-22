@@ -1,13 +1,13 @@
 // adapters/controllers/UserController.ts
 import { Request, Response } from "express";
-import { UserService } from "../../application/services/uses-cases/UserService";
-import { UserRepository } from "../repositorios/UserRepository";
+import { TaskService } from "../../application/services/uses-cases/TaskService";
+import { TaskRepository } from "../repositorios/TaskRepository";
 
 
-export const registerUser = async (req: Request, res: Response, userRepository: UserRepository, userService: UserService) => {
+export const registerTask = async (req: Request, res: Response, taskRepository: TaskRepository, taskService: TaskService) => {
     try {
-        const newUser = await userService.createUser(req.body);
-        res.status(201).json(newUser);
+        const newTask = await taskService.createTask(req.body);
+        res.status(201).json(newTask);
     } catch (err) {
         if (err instanceof Error) {
             res.status(400).json({ error: err.message });
@@ -18,10 +18,10 @@ export const registerUser = async (req: Request, res: Response, userRepository: 
     }
 };
 
-export const updateUser = async (req: Request, res: Response, userRepository: UserRepository, userService: UserService) => {
+export const updateTask = async (req: Request, res: Response, taskRepository: TaskRepository, taskService: TaskService) => {
     try {
-        const userId = req.params.id; // Suponiendo que el id del usuario está en los parámetros de la solicitud
-        const updatedUser = await userService.updateUser(userId, req.body); // Llama al método de actualización del servicio de usuarios
+        const taskId = req.params.id; // Suponiendo que el id del usuario está en los parámetros de la solicitud
+        const updatedUser = await taskService.updateTask(taskId, req.body); // Llama al método de actualización del servicio de usuarios
         res.status(200).json(updatedUser);
     } catch (err) {
         if (err instanceof Error) {
@@ -33,10 +33,10 @@ export const updateUser = async (req: Request, res: Response, userRepository: Us
     }
 };
 
-export const deleteUser = async (req: Request, res: Response, userRepository: UserRepository, userService: UserService) => {
+export const deleteTask = async (req: Request, res: Response, TaskRepository: TaskRepository, taskService: TaskService) => {
     try {
-        const userId = req.params.id;
-        await userService.deleteUser(userId);
+        const taskId = req.params.id;
+        await taskService.deleteTask(taskId);
         res.status(204).send(); // No Content
     } catch (err) {
         if (err instanceof Error) {
@@ -47,10 +47,10 @@ export const deleteUser = async (req: Request, res: Response, userRepository: Us
     }
 };
 
-export const getAllUsers = async (req: Request, res: Response, userRepository: UserRepository, userService: UserService) => {
+export const getAllTask = async (req: Request, res: Response, taskRepository: TaskRepository, taskService: TaskService) => {
     try {
-        const allUsers = await userService.getAllUsers();
-        res.status(200).json(allUsers);
+        const allTasks = await taskService.getAllTasks();
+        res.status(200).json(allTasks);
     } catch (err) {
         if (err instanceof Error) {
             res.status(500).json({ error: err.message });
