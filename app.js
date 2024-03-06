@@ -16,6 +16,7 @@ const PORT = 8080;
 const taskRepository = new PostegresTaskRepository_1.PostgresUserRepository();
 const taskService = new TaskService_1.TaskService(taskRepository);
 // Middleware
+app.set('trust proxy', true);
 app.use(bodyParser.json());
 // Rate Limiter
 const accountLimiter = (0, express_rate_limit_1.default)({

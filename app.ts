@@ -14,6 +14,7 @@ const taskRepository = new PostgresTaskRepository();
 const taskService = new TaskService(taskRepository);
 
 // Middleware
+app.set('trust proxy', true);
 app.use(bodyParser.json());
 
 // Rate Limiter
