@@ -5,8 +5,13 @@ import TaskModel from '../task/domain/entities/TasksModel'
 export const sequelize = new Sequelize('defaultdb', 'doadmin', 'AVNS_KRvHRXzDndS1LrSv3DP', {
     host: 'db-postgresql-nyc3-28307-do-user-15995791-0.c.db.ondigitalocean.com',
     port: 25060,
-    ssl: true,
     dialect: 'postgres',
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false // You should use true in production and provide the CA cert
+        }
+    }
 });
 
 sequelize.authenticate()
