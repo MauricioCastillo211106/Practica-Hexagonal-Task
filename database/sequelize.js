@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.sequelize = void 0;
 // adapters/persistence/sequelize.ts
 const sequelize_1 = require("sequelize");
-exports.sequelize = new sequelize_1.Sequelize('defaultdb', 'doadmin', 'AVNS_KRvHRXzDndS1LrSv3DP', {
-    host: 'db-postgresql-nyc3-28307-do-user-15995791-0.c.db.ondigitalocean.com',
-    port: 25060,
+exports.sequelize = new sequelize_1.Sequelize('hex_demo', 'postgres', 'Hotel123', {
+    host: 'hotel-mantenimiento.cp2u8yo0qyl1.us-east-1.rds.amazonaws.com',
+    port: 5432,
     dialect: 'postgres',
     dialectOptions: {
         ssl: {

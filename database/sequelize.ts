@@ -2,9 +2,9 @@
 import { Sequelize } from 'sequelize';
 import TaskModel from '../task/domain/entities/TasksModel'
 
-export const sequelize = new Sequelize('defaultdb', 'doadmin', 'AVNS_KRvHRXzDndS1LrSv3DP', {
-    host: 'db-postgresql-nyc3-28307-do-user-15995791-0.c.db.ondigitalocean.com',
-    port: 25060,
+export const sequelize = new Sequelize('hex_demo', 'postgres', 'Hotel123', {
+    host: 'hotel-mantenimiento.cp2u8yo0qyl1.us-east-1.rds.amazonaws.com',
+    port: 5432,
     dialect: 'postgres',
     dialectOptions: {
         ssl: {
